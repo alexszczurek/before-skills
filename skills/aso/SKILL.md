@@ -9,7 +9,7 @@ You are optimizing an iOS App Store listing. 70% of App Store visitors find apps
 
 ## The only fields that rank
 
-Apple indexes exactly 160 characters of owned keyword surface. Never spend effort "optimizing the description for keywords" — the description and promotional text (170 chars, updatable without a new version) are NOT indexed. They affect conversion, not discovery. The description still matters for one discovery mechanism: Apple's LLM generates App Store *tags* from the description and screenshots, so it must name the app's category and core use cases in plain words — for the tag generator, not for keyword rankings.
+Apple indexes exactly 160 characters of owned keyword surface. Never spend effort "optimizing the description for keywords" — the description and promotional text (170 chars, updatable without a new version) are NOT indexed. They affect conversion, not discovery. The description still matters for one discovery mechanism: Apple's LLM generates App Store *tags* from the description and screenshots, so it must name the app's category and core use cases in plain words — for the tag generator, not for keyword rankings. Google also indexes the description on the web App Store (apps.apple.com), a second discovery channel Apple's own search ignores.
 
 | Field | Limit | Keyword weight | Visible to users |
 |---|---|---|---|
@@ -19,7 +19,7 @@ Apple indexes exactly 160 characters of owned keyword surface. Never spend effor
 
 Also indexed: category, screenshot content (Apple-confirmed at WWDC25 — extracted by AI analysis, not OCR), tags, and in-app event names (as reinforcement of existing keywords, see In-app events).
 
-Beyond text, the algorithm weighs behavioral signals: download velocity, ratings, engagement, and retention. Apps with high uninstall rates or low session frequency get demoted — ASO cannot fix a leaky product; retention is a visibility input.
+Beyond text, Apple confirms downloads and ratings as ranking inputs (plus an unspecified "and more"). Retention and uninstall-rate demotion is officially documented only on Google Play, not iOS — treat it as likely, not confirmed. Either way, low retention starves download velocity, so the practical rule holds: ASO cannot fix a leaky product.
 
 **The zero-overlap rule:** never repeat a word across the name, subtitle, or keyword field. Apple combines tokens across all fields, so a duplicated word is a wasted slot that could have covered a new search query. When auditing a listing, check this first — it is the most common and cheapest-to-fix error.
 
@@ -29,7 +29,7 @@ Apple's search increasingly interprets the semantic intent behind a query instea
 
 - Group keyword candidates into intent clusters (what the user is trying to accomplish) and make metadata answer the intent in plain language, not enumerate tokens.
 - Prefer long-tail, high-intent queries over head terms: "remove background from photo" converts better than "photo editor" because the searcher already knows what they need — and head terms are also losing traffic to AI assistants (users ask ChatGPT or Gemini for app recommendations before ever opening the store), while in-store long-tail holds its value.
-- Rich structured signals (in-app events, ratings, engagement) feed semantic ranking — they are not just conversion decoration.
+- Rich structured signals (in-app events, ratings) feed semantic ranking — they are not just conversion decoration.
 
 ## App Name
 
@@ -151,6 +151,10 @@ Events are a reinforcement surface, not new keyword territory: an event will not
 - Event cards surface in search results and on the product page even for users who already installed the app, making events the only listing surface that re-engages existing users.
 - Run events for real occasions (launches, seasonal content, challenges) — they also feed semantic ranking as a structured activity signal, and an approved event is the strongest attachment for a featuring nomination.
 
+## Promoted in-app purchases
+
+Up to 20 IAPs or subscriptions can be promoted, each with its own display name (30 chars) and description (45 chars). Promoted non-consumables appear in App Store search results as their own entries — a free extra search presence most subscription apps never configure. Whether IAP names are keyword-indexed is unconfirmed, so write them as plain-language offers ("Annual Pro — unlimited exports"), never keyword slots. All IAP promotional metadata is editable anytime without a release, making it one of the few discovery surfaces you can iterate between versions.
+
 ## Product page experiments
 
 Two App Store Connect features multiply the single default listing — use both before concluding "the metadata doesn't work":
@@ -163,17 +167,21 @@ Two App Store Connect features multiply the single default listing — use both 
 
 Editorial featuring (Today tab, category features) is free reach most indies never apply for. Nominations are submitted in App Store Connect.
 
-- Submit at least 2 weeks before the moment; up to 3 months ahead widens consideration.
+- Submit at least 3 weeks before the moment; up to 3 months ahead widens consideration.
 - Three nomination types: App Launch, App Enhancements (major updates), New Content (seasonal campaigns, events, offers). Pick the one that matches — a bug-fix release or UI refresh with no functional change never gets featured.
+- Editors screen for UX quality, accessibility, localization, adoption of new Apple APIs, and a rating ≥ 4.0 — fix those before nominating, not after a rejection.
 - Give editors a timing hook they can schedule around: adoption of a new iOS API, a holiday tie-in, an in-app event with a date. "The app is good" is not a hook.
 - Attach an approved in-app event, and use all 5 supporting-URL slots (TestFlight links count).
 - Nominate in smaller localized markets too — regional featuring bars are far lower than the US, and localized metadata is the qualifier.
+- Featuring is a spike, not a channel — a Game of the Day slot has driven +470% organic installs for about a week, then decay. Time nominations to moments the listing can convert, and never plan revenue around recurring featuring.
 
 ## Paid + organic flywheel
 
 Apple's algorithm needs download velocity to rank an app, but the app needs rank to get downloads. Pure organic ASO rarely breaks this cold start. Paid installs don't buy organic rank directly — no credible source claims that — but they raise keyword-level download velocity and conversion, which the organic algorithm weighs.
 
 Before spending: minimum viable ASO first — primary keywords placed in name/subtitle, screenshot tap-through above ~25%, rating above 4.0. Paid traffic landing on a broken listing buys data, not downloads.
+
+Pre-orders bank launch velocity for free: a pre-order page (available 2–180 days before release) ranks in search during the window, and every pre-order auto-downloads on release day — a concentrated day-one download spike the algorithm reads. Launching without pre-orders throws that spike away.
 
 1. Run Apple Ads (renamed from Apple Search Ads in April 2025; placements expanded again in March 2026) at $10–20/day on the same keywords being optimized organically.
 2. Structure in two campaign types: a **brand campaign** on your own name (competitors bid on it; defend it cheaply) and a **discovery campaign** (broad match + Search Match). The discovery campaign's goal is intelligence, not volume — you are paying Apple to reveal exactly what users type when they want an app like yours.
@@ -182,12 +190,22 @@ Before spending: minimum viable ASO first — primary keywords placed in name/su
 
 Paid is the push that starts the flywheel; organic keeps it spinning.
 
+## Metadata change mechanics
+
+Name, subtitle, keyword field, description, screenshots, previews, and categories are version-locked — they change only with an app release. Promotional text, pricing, IAP metadata, tags, and CPPs are editable anytime. Consequences:
+
+- Batch indexed-metadata changes into every release; between releases, iterate only on the anytime-editable surfaces.
+- Plan seasonal keywords one release ahead: seasonal queries spike hard (holiday terms run ~9× normal volume for a week) and a version stuck in review misses the window. Cover the moment itself with in-app events, promo text, and CPPs.
+- After a metadata release, expect 24–72 hours of partial re-indexing and 1–2 weeks of ranking volatility before things settle (industry estimate, not Apple-confirmed) — which is why a change is judged at the 2–4 week mark, never day one.
+
 ## Iteration loop
 
 ASO is a monthly habit, not a launch task. Ranking changes from a metadata update show in 2–4 weeks; full results take 2–3 months — judge a change at the first mark, not the day after. Every 2–4 weeks:
 
 - Check keyword movement; a keyword with no movement after 2 cycles gets replaced from the reserve list.
 - Track: keyword rankings, search impressions, tap-through rate, conversion rate, organic vs. paid split.
+- Read the numbers correctly: App Store Connect conversion rate = downloads ÷ unique *impressions* (not product-page views), and the "App Store search" source *includes Apple Ads taps* — derive true organic search by subtracting ads installs, or the flywheel looks healthier than it is.
+- Compare against App Store Connect peer group benchmarks (25th/50th/75th percentile conversion, retention, crash rate) to tell whether the weak link is discovery or the page itself.
 - Read recent reviews for new keyword ideas — users describe the app in the words other users will search.
 - Quarterly: re-review generated tags (see Tags) and check the icon against current-OS icon styles.
 
@@ -207,4 +225,5 @@ When reviewing an existing listing, check in this order:
 - [ ] Generated tags reviewed; misrepresentative ones deselected
 - [ ] At least 3 additional locales configured with researched (not translated) keywords, including the storefront's cross-indexed locale
 - [ ] Description names the category and core use cases in plain words (feeds Apple's tag generation)
+- [ ] Subscription/IAP apps: promoted IAPs configured with plain-language offer names
 - [ ] A creative A/B test is running or queued; recurring content uses in-app events; next featuring nomination has a date and a hook
