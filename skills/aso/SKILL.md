@@ -23,6 +23,27 @@ Beyond text, Apple confirms downloads and ratings as ranking inputs (plus an uns
 
 **The zero-overlap rule:** never repeat a word across the name, subtitle, or keyword field. Apple combines tokens across all fields, so a duplicated word is a wasted slot that could have covered a new search query. When auditing a listing, check this first — it is the most common and cheapest-to-fix error.
 
+## Ranking and conversion are separate jobs
+
+Every surface serves ranking (being found), conversion (being tapped and installed), or both. Optimizing the whole listing in one undifferentiated pass silently trades one against the other — the classic failure is packing keywords into a subtitle or screenshot caption, gaining rank and losing installs.
+
+| Surface | Ranking | Conversion |
+|---|---|---|
+| Keyword field | Yes | None — invisible to users |
+| App name | Highest weight | Yes |
+| Subtitle | Second weight | Yes |
+| Screenshots | Yes (AI-analyzed) | Primary driver |
+| Icon | None | Yes |
+| Preview video | None | Yes |
+| Ratings | Yes | Yes |
+
+Rules that follow from this split:
+
+- **Diagnose before optimizing.** Low impressions = a ranking problem; high impressions with low conversion = a conversion problem. Never accept "optimize my listing" as one undifferentiated task — establish which axis is broken, and say so before changing anything.
+- **Spend pure-ranking effort in the keyword field first.** It is invisible, so it cannot cost conversion. Fill all 100 characters before pushing any keyword into a user-visible field.
+- **On dual-purpose surfaces (name, subtitle, screenshots), readability wins ties.** These are read by a human deciding whether to tap, and semantic search now penalizes stuffing directly — so a ranking gain bought with awkward copy loses twice.
+- **Name the trade.** When a change helps one axis and risks the other, state the cost instead of presenting the change as a pure win.
+
 ## Think in intent clusters, not keywords
 
 Apple's search increasingly interprets the semantic intent behind a query instead of matching literal tokens — it evaluates whether an app *satisfies* the query, and can rank you for terms you never targeted. Keyword-stuffed metadata now loses to natural-language metadata that clearly states what the app does. Consequences:
@@ -213,6 +234,7 @@ ASO is a monthly habit, not a launch task. Ranking changes from a metadata updat
 
 When reviewing an existing listing, check in this order:
 
+- [ ] Diagnosed which axis is weak — ranking (low impressions) or conversion (low downloads per impression) — and stated it before proposing changes
 - [ ] Name uses all 30 chars and contains the primary keyword
 - [ ] Zero word overlap across name / subtitle / keyword field
 - [ ] Keyword field: ≥95 of 100 chars, no spaces after commas, singular only, no name/developer/category words, no trademarks or competitor names
