@@ -1,6 +1,6 @@
 ---
 name: aso
-description: Write, audit, or improve an iOS App Store listing — app name, subtitle, keyword field, screenshots, app icon, preview video, tags, ratings strategy, localization, and featuring nominations. Use when creating or reviewing App Store metadata, doing keyword research, planning a metadata update, or when the user mentions ASO, App Store Optimization, app store listing, keywords, subtitle, screenshot captions, preview video, app icon, Liquid Glass, featuring, ratings prompt, or Apple Ads.
+description: Write, audit, or improve an iOS App Store listing — app name, subtitle, keyword field, screenshots, app icon, preview video, creative assets, tags, ratings strategy, localization, and featuring nominations. Use when creating or reviewing App Store metadata, doing keyword research, planning a metadata update, or when the user mentions ASO, App Store Optimization, app store listing, keywords, subtitle, screenshot captions, preview video, app icon, Liquid Glass, creative assets, product page header, search results creative, Asset Library, featuring, ratings prompt, or Apple Ads.
 ---
 
 # App Store Optimization
@@ -35,6 +35,8 @@ Every surface serves ranking (being found), conversion (being tapped and install
 | Screenshots | Yes (AI-analyzed) | Primary driver |
 | Icon | None | Yes |
 | Preview video | None | Yes |
+| Product page header | None | Yes |
+| Search results creative | None | Yes |
 | Ratings | Yes | Yes |
 
 Rules that follow from this split:
@@ -136,6 +138,27 @@ Apple auto-plays preview videos muted in search results — an app without one s
 - Show the app doing something, never a marketing sizzle reel. Apple requires previews to show actual app footage.
 - 15–30 seconds total.
 
+## Creative assets
+
+Introduced at WWDC26, live on the store with iOS 27 and iPadOS 27. Screenshots and previews show the app *in use*; creative assets carry brand, seasonal offerings, and new content. Different job — never repurpose one as the other.
+
+| Placement | What it is | If you skip it |
+|---|---|---|
+| Product page header | Image or video at the top of the listing, the first thing a visitor sees | The page opens on screenshots |
+| Search results creative | The app's first impression in the Search tab, before anyone reaches the product page | Apple falls back to In-App Events, then previews, then screenshots |
+
+The header is not an In-App Event card (those stay mid-page), not Today editorial, and not a paid ad slot. The search results creative is optional.
+
+- **Build one universal creative first.** A single asset can serve the header, search results, and Apple Ads — and the same asset attaches to CPPs and to PPO header tests.
+- **Upload through the Asset Library in App Store Connect.** Submit alongside a new app version, or separately in the Asset Library — independently of an app submission. The icon, by contrast, still changes only with a new binary.
+- **Static image first.** Use video only if it reads muted and loops cleanly.
+- **One clear idea, aimed at a first-time visitor.** The header is not the place to summarize the feature list.
+- **Skip the header when screenshot 1 is already the hero** and there is nothing new to say. An empty slot beats a redundant one.
+
+Every creative asset must pass a **4+ age rating even when the app is 17+**. Apple rejects: pricing or discounts, URLs, copyright marks, unverifiable awards, logos or references to rival storefronts, and any Apple badge (Editor's Choice, App of the Day, Game of the Day, Apple Design Award).
+
+Creative assets are a conversion lever, not a ranking lever. Apple has not said header or search creative content is indexed, so never treat either as keyword surface — the screenshot rules above are unchanged.
+
 ## Ratings
 
 The star rating shows in search results before anyone visits the page. A 4.5★ app converts 30–40% better than a 3.8★ app on the same keyword and creatives — below 4.0, better metadata cannot win the conversion battle. Fix the rating first, then aim for 4.5+.
@@ -180,8 +203,8 @@ Up to 20 IAPs or subscriptions can be promoted, each with its own display name (
 
 Two App Store Connect features multiply the single default listing — use both before concluding "the metadata doesn't work":
 
-- **Product page optimization (A/B tests):** up to 3 treatments against the default page, testing icon, screenshots, or previews (not text). Only icon tests require a new app binary; screenshot/preview tests ship without a release. Tests run up to 90 days at a 90% confidence threshold — always test one variable at a time or the winner teaches nothing.
-- **Test creatives before copy.** Creative tests (icon, screenshots, previews) deliver 10–25% conversion lifts; copy iterations deliver 2–8%. Spend testing slots on assets first.
+- **Product page optimization (A/B tests):** up to 3 treatments against the default page, testing icon, screenshots, previews, or product page header visuals (not text). Only icon tests require a new app binary; screenshot, preview, and header tests ship without a release. Tests run up to 90 days at a 90% confidence threshold — always test one variable at a time or the winner teaches nothing.
+- **Test creatives before copy.** Creative tests (icon, screenshots, previews, header) deliver 10–25% conversion lifts; copy iterations deliver 2–8%. Spend testing slots on assets first.
 - **Custom product pages:** up to 70 per app, each with its own screenshots, promo text, and previews, each with its own URL and (since iOS 18) deep link. CPPs can be assigned their own keywords and rank in organic search — one keyword *theme* per page, so each page answers one intent — and a CPP must be localized for a market to appear in that market's search results. Apple's own data shows a 2.5-percentage-point conversion lift when traffic lands on a matching CPP instead of the default page.
 
 ## Featuring nominations
@@ -213,7 +236,7 @@ Paid is the push that starts the flywheel; organic keeps it spinning.
 
 ## Metadata change mechanics
 
-Name, subtitle, keyword field, description, screenshots, previews, and categories are version-locked — they change only with an app release. Promotional text, pricing, IAP metadata, tags, and CPPs are editable anytime. Consequences:
+Name, subtitle, keyword field, description, screenshots, previews, and categories are version-locked — they change only with an app release. Promotional text, pricing, IAP metadata, tags, CPPs, and creative assets (via the Asset Library) are editable anytime. Consequences:
 
 - Batch indexed-metadata changes into every release; between releases, iterate only on the anytime-editable surfaces.
 - Plan seasonal keywords one release ahead: seasonal queries spike hard (holiday terms run ~9× normal volume for a week) and a version stuck in review misses the window. Cover the moment itself with in-app events, promo text, and CPPs.
@@ -243,6 +266,7 @@ When reviewing an existing listing, check in this order:
 - [ ] Screenshot 1 states the main benefit; every screenshot has a caption in searchable feature language, none keyword-stuffed
 - [ ] Icon is a layered Liquid Glass artwork checked in all six appearance modes
 - [ ] Preview video exists, opens on action, has text overlays, 15–30s
+- [ ] Product page header and search results creative are in place and pass the 4+ content rules, or deliberately skipped with a stated reason
 - [ ] Rating ≥ 4.0 (target 4.5+) with a success-moment prompt in place (3 system prompts/year is the whole budget)
 - [ ] Generated tags reviewed; misrepresentative ones deselected
 - [ ] At least 3 additional locales configured with researched (not translated) keywords, including the storefront's cross-indexed locale
