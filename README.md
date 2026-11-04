@@ -24,7 +24,7 @@ npx skills add alexszczurek/before-skills --skill aso
 
 Writes and audits iOS App Store listings: app name, subtitle, keyword field, screenshots, icon, preview video, tags, ratings, localisation, and featuring nominations.
 
-Distilled from [the before.click ASO guide](https://before.click/insights/app-store-seo) and checked against Apple's 2025–2026 documentation, so it covers what changed since most ASO advice was written: Apple-confirmed screenshot indexing, AI-generated App Store tags, Liquid Glass icons, the shift toward semantic search, and the App Store Review Guideline that prohibits competitor names in the keyword field.
+Distilled from [the before.click ASO guide](https://before.click/insights/app-store-seo) and checked against Apple's 2025–2026 documentation, so it covers what changed since most ASO advice was written: Apple-confirmed screenshot indexing, AI-generated App Store tags, Liquid Glass icons, the shift toward semantic search, the App Store Review Guideline that prohibits competitor names in the keyword field, and App Review's rule that more than half of the screenshots in every device and language set must show the app in use. It also knows the current screenshot sizes, including iPhone Duo.
 
 ## How to use it
 
@@ -33,6 +33,7 @@ Ask for what you want in plain language. The skill loads on its own when your re
 - "Audit my App Store listing" — walks the audit checklist in order, cheapest fix first
 - "Write a title and subtitle for my caffeine tracking app" — runs the keyword research procedure, then distributes terms across fields
 - "Is my keyword field any good?" — checks character count, formatting, duplicate words, and prohibited terms
+- "Will these screenshots pass review?" — counts in-use screenshots for every device and language set, and flags the ones that fail
 - "Plan my next metadata update" — separates what needs an app release from what you can change today
 
 In Claude Code you can also invoke it directly with `/aso`.

@@ -1,6 +1,6 @@
 ---
 name: aso
-description: Write, audit, or improve an iOS App Store listing — app name, subtitle, keyword field, screenshots, app icon, preview video, creative assets, tags, ratings strategy, localization, and featuring nominations. Use when creating or reviewing App Store metadata, doing keyword research, planning a metadata update, or when the user mentions ASO, App Store Optimization, app store listing, keywords, subtitle, screenshot captions, preview video, app icon, Liquid Glass, creative assets, product page header, search results creative, Asset Library, featuring, ratings prompt, or Apple Ads.
+description: Write, audit, or improve an iOS App Store listing — app name, subtitle, keyword field, screenshots, app icon, preview video, creative assets, tags, ratings strategy, localization, and featuring nominations. Use when creating or reviewing App Store metadata, doing keyword research, planning a metadata update, or when the user mentions ASO, App Store Optimization, app store listing, keywords, subtitle, screenshot captions, preview video, app icon, Liquid Glass, creative assets, product page header, search results creative, Asset Library, featuring, ratings prompt, Apple Ads, screenshot rejection, Guideline 2.3.3, screenshot sizes, or iPhone Duo.
 ---
 
 # App Store Optimization
@@ -107,7 +107,7 @@ Pick 15–20 keywords for the first update and hold 15–20 in reserve — under
 
 ## Screenshots
 
-Screenshots are advertisements, not documentation. Raw UI captures are a photo album, not optimization — users scan captions at thumbnail size and never study the UI. Only 1–3 screenshots show in search results, and only two device sizes are required (6.9" iPhone, 13" iPad — everything else scales down).
+Screenshots are advertisements built on the real app. A bare UI capture with no caption undersells it — users scan captions at thumbnail size and never study the UI — but a set that is mostly marketing art gets rejected (see the App Review gate below). The winning layout is the same one that passes review: real UI from the current build, in or out of a device frame, under a short caption. Only 1–3 screenshots show in search results.
 
 Every screenshot gets a bold text caption at the top. Apple confirmed screenshots affect discoverability — its AI analyzes screenshot content — but Apple explicitly warns against stuffing keywords into visual assets. So: captions describe real features in the language users actually search ("Remove backgrounds in one tap"), never a keyword list. Stuffed captions read as desperate at exactly the moment the user decides whether to tap.
 
@@ -120,6 +120,63 @@ Assign jobs by position (max 10 slots):
 | 3 | Trust signal — award, press, user count ("Apple Watch App of the Year") |
 | 4–6 | Core features solving real problems |
 | 7–8 | Recent features — proof the app is alive |
+
+These are jobs, not permission to go full marketing: a trust-signal slot that shows only an award badge and no app is a marketing screenshot, and it counts against the gate below.
+
+### App Review gate: more than half must show the app in use
+
+Guideline 2.3.3 says screenshots should show the app in use, not merely title art, a login page, or a splash screen. Apple's App Review Help page for 2.3.3 (linked from Apple's October 5, 2026 developer news) turns that into a count: App Review approves a submission only when **more than half** of the screenshots show the app in use. The guideline text itself did not change; the count is how App Review applies it. Exactly half fails.
+
+The count runs **per device type and per localization**, never across the whole listing. Each iPhone set, iPad set, and iPhone Duo set is judged on its own, and so is every language's version of each set. A localized set that swaps real UI for translated marketing slides can fail on its own while the English set passes.
+
+| Screenshots in the set | Minimum showing the app in use |
+|---|---|
+| 1 | 1 |
+| 2 | 2 |
+| 3 | 2 |
+| 4 | 3 |
+| 5 | 3 |
+| 6 | 4 |
+| 7 | 4 |
+| 8 | 5 |
+| 9 | 5 |
+| 10 | 6 |
+
+Formula: minimum in-use = ⌊n / 2⌋ + 1.
+
+What counts as "in use", from Apple's Help page:
+
+- Real interface from the current build, showing what the app does. Captions, backgrounds, device frames, and overlays that demonstrate input (a touch point, Apple Pencil) are fine.
+- Overlays and marketing visuals must not crowd out the app or hide its primary functionality. A tiny phone mockup behind a giant headline is marketing, not in use.
+- Never in use: hardware or an overlay with no app interface behind it, title art, login pages, splash screens.
+- One image of the app in use may span several screenshots (a panorama). Apple does not say how each slot of a panorama is counted, so count a slot as in use only when that slot on its own shows a meaningful part of real UI.
+
+**Run this check before handing over any screenshot plan or design**, and run it again after every localization or device adaptation:
+
+1. List every set: each device type × each localization.
+2. Label every slot in every set: `in use` or `marketing`. When unsure, label it `marketing`.
+3. For each set, compare the in-use count with the table. Report each set as `pass` or `fail`, with the count (for example "iPhone, de-DE: 3 of 6 in use — fail, needs 4").
+4. Fix failures by turning marketing slots into captioned real UI, or by dropping marketing slots. Adding a marketing slot to a passing set can break it: 4 of 6 passes, 4 of 8 fails.
+
+Only marketing slots are free. Benefit claims, trust signals, and feature summaries can be marketing slides, as long as each set keeps its in-use majority.
+
+### Screenshot sizes
+
+App Store Connect validates pixel dimensions exactly. Files are PNG or JPEG, RGB, no alpha channel, 1–10 per device size.
+
+| Display | Portrait | Status |
+|---|---|---|
+| iPhone, medium display (6.3") | 1206 × 2622 or 1179 × 2556 | Required for every iPhone app |
+| iPhone, large display (6.9") | 1320 × 2868 | Optional; App Store Connect can scale it down into the required slot |
+| iPhone Duo, outer display | 1398 × 2034 | Own slot; see below |
+| iPhone Duo, inner display | 2007 × 2853 | Own slot; see below |
+| iPad 13" | 2064 × 2752 | Required for iPad apps |
+
+Landscape uses the same numbers swapped.
+
+**iPhone Duo needs its own set.** It has one slot per localization, which takes either the outer or the inner size, and App Store Connect does not scale other screenshots into it. Neither Duo size shares an aspect ratio with a regular iPhone: the inner display is about 7:10, closer to an iPad than a phone. So a scaled or letterboxed iPhone set is not a Duo set — lay the captions and UI out again for the wider canvas, and capture real Duo UI from a build that supports the device.
+
+Multiple third-party guides report that Duo screenshots become required for submissions from April 2027 (some tie it to building with the iOS 27.1 SDK or later). That date is not confirmed from Apple's own pages here — check App Store Connect before planning around it. The Duo set is judged by the in-use gate like any other set.
 
 ## App icon
 
@@ -154,6 +211,10 @@ The header is not an In-App Event card (those stay mid-page), not Today editoria
 - **Static image first.** Use video only if it reads muted and loops cleanly.
 - **One clear idea, aimed at a first-time visitor.** The header is not the place to summarize the feature list.
 - **Skip the header when screenshot 1 is already the hero** and there is nothing new to say. An empty slot beats a redundant one.
+
+Since the October 16, 2026 revision of the App Review Guidelines, creative assets have their own guideline, **2.3.14**: they must relate to the app's content and functionality or its overarching brand, follow standard metadata rules, and suit all audiences — no inappropriate content, no references to other apps meant to mislead, no unverifiable claims, no specific or discounted prices.
+
+Keep creative assets out of the screenshot count. Apple has not said whether the in-use gate applies to them, so a header never makes up for marketing-heavy screenshots: each screenshot set must pass the gate on its own.
 
 Every creative asset must pass a **4+ age rating even when the app is 17+**. Apple rejects: pricing or discounts, URLs, copyright marks, unverifiable awards, logos or references to rival storefronts, and any Apple badge (Editor's Choice, App of the Day, Game of the Day, Apple Design Award).
 
@@ -264,6 +325,8 @@ When reviewing an existing listing, check in this order:
 - [ ] No filler words ("app", "free", "best", "the") in any indexed field
 - [ ] Metadata reads as natural language answering one intent per field — not a token list
 - [ ] Screenshot 1 states the main benefit; every screenshot has a caption in searchable feature language, none keyword-stuffed
+- [ ] App Review gate: every set (each device type × each localization) has more than half of its screenshots showing the app in use — reported per set with the count, not "looks fine"
+- [ ] Screenshot sizes match the current required slots (6.3" iPhone; 13" iPad for iPad apps), and an iPhone Duo set is designed for its own aspect ratio, not scaled from iPhone
 - [ ] Icon is a layered Liquid Glass artwork checked in all six appearance modes
 - [ ] Preview video exists, opens on action, has text overlays, 15–30s
 - [ ] Product page header and search results creative are in place and pass the 4+ content rules, or deliberately skipped with a stated reason
