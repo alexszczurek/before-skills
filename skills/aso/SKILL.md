@@ -107,7 +107,9 @@ Pick 15–20 keywords for the first update and hold 15–20 in reserve — under
 
 ## Screenshots
 
-Screenshots are advertisements, not documentation. Raw UI captures are a photo album, not optimization — users scan captions at thumbnail size and never study the UI. Only 1–3 screenshots show in search results, and only two device sizes are required (6.9" iPhone, 13" iPad — everything else scales down).
+Screenshots are advertisements, not documentation. Raw UI captures are a photo album, not optimization — users scan captions at thumbnail size and never study the UI. Only 1–3 screenshots show in search results. The required uploads are one set for iPhone with Dynamic Island (medium display) and, if the app runs on iPad, one 13" iPad set — App Store Connect scales those down when the UI is consistent across sizes ([screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications/)). iPhone Duo is a separate slot, below, not a scaled iPhone.
+
+**Before designing or critiquing a set, count in-use versus marketing screens for every device size and every localization, and flag any set that fails.** [Guideline 2.3.3](https://developer.apple.com/app-store/review/guidelines/) says screenshots should show the app in use, not merely title art, a login page, or a splash screen; text and image overlays that demonstrate input are allowed. The numeric test is on Apple's [2.3.3 help page](https://developer.apple.com/help/app-review/guideline-reference/2-3-3-screenshots), which the guideline links to (the [guidelines page](https://developer.apple.com/app-store/review/guidelines/) was last updated October 16, 2026; that day's changelog adds 2.3.14 and does not rewrite 2.3.3): App Review approves a submission only when more than half of the screenshots for that device, in that localization, show the app in use on that device. The rest may be marketing or brand slides. Exactly half fails. Apple's own examples are 3 screenshots needing 2 in use, and 4 needing 3; the same "more than half" rule on a full set of 10 needs 6. One screenshot is enough when it shows the app in use, and the count may differ by device.
 
 Every screenshot gets a bold text caption at the top. Apple confirmed screenshots affect discoverability — its AI analyzes screenshot content — but Apple explicitly warns against stuffing keywords into visual assets. So: captions describe real features in the language users actually search ("Remove backgrounds in one tap"), never a keyword list. Stuffed captions read as desperate at exactly the moment the user decides whether to tap.
 
@@ -120,6 +122,10 @@ Assign jobs by position (max 10 slots):
 | 3 | Trust signal — award, press, user count ("Apple Watch App of the Year") |
 | 4–6 | Core features solving real problems |
 | 7–8 | Recent features — proof the app is alive |
+
+### iPhone Duo sizes
+
+From the same [screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications/) page: outer display 1398×2034 (portrait) or 2034×1398 (landscape); inner display 2007×2853 or 2853×2007. Submitting them puts a badge on the product page showing the app is optimized for iPhone Duo. Starting in April 2027 they are required for any app using the iOS 27.1 SDK or later. Count the in-use majority separately for the outer set and the inner set — they are different sizes, and the in-use shots have to show the app on that display.
 
 ## App icon
 
@@ -142,6 +148,8 @@ Apple auto-plays preview videos muted in search results — an app without one s
 
 Introduced at WWDC26, live on the store with iOS 27 and iPadOS 27. Screenshots and previews show the app *in use*; creative assets carry brand, seasonal offerings, and new content. Different job — never repurpose one as the other.
 
+[Guideline 2.3.14](https://developer.apple.com/app-store/review/guidelines/), added in the October 16, 2026 update, is the rule for these assets: they highlight the app in ways in-use screenshots and preview videos do not, and they can run across the App Store, including the product page header and search results. They must pertain to the app's content and functionality or its overarching brand, follow standard metadata guidelines, and be appropriate for all audiences. They should not include inappropriate content, references to other apps meant to mislead, unverifiable product claims, or specific or discounted pricing.
+
 | Placement | What it is | If you skip it |
 |---|---|---|
 | Product page header | Image or video at the top of the listing, the first thing a visitor sees | The page opens on screenshots |
@@ -151,13 +159,13 @@ The header is not an In-App Event card (those stay mid-page), not Today editoria
 
 - **Build one universal creative first.** A single asset can serve the header, search results, and Apple Ads — and the same asset attaches to CPPs and to PPO header tests.
 - **Upload through the Asset Library in App Store Connect.** Submit alongside a new app version, or separately in the Asset Library — independently of an app submission. The icon, by contrast, still changes only with a new binary.
-- **Static image first.** Use video only if it reads muted and loops cleanly.
+- **Static image first.** Use video only if it reads muted and loops cleanly. Header spec, from [creative assets specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/creative-assets-specifications/): image is 21:9 at 3840×1646 (JPEG or PNG) or 16:9 at 5244×2950 (PNG only), no transparency. Video is 21:9 at 3840×1646, 30 or 60 fps, 5–30 seconds (`.mov`, `.m4v`, or `.mp4`). It loops. It plays muted by default; on the product page people can unmute it. Creative assets show on the App Store in iOS 27 and iPadOS 27 and later ([asset best practices](https://developer.apple.com/app-store/asset-best-practices/)).
 - **One clear idea, aimed at a first-time visitor.** The header is not the place to summarize the feature list.
 - **Skip the header when screenshot 1 is already the hero** and there is nothing new to say. An empty slot beats a redundant one.
 
 Every creative asset must pass a **4+ age rating even when the app is 17+**. Apple rejects: pricing or discounts, URLs, copyright marks, unverifiable awards, logos or references to rival storefronts, and any Apple badge (Editor's Choice, App of the Day, Game of the Day, Apple Design Award).
 
-Creative assets are a conversion lever, not a ranking lever. Apple has not said header or search creative content is indexed, so never treat either as keyword surface — the screenshot rules above are unchanged.
+Creative assets are a conversion lever, not a ranking lever. Apple has not said header or search creative content is indexed, so never treat either as keyword surface. A header does not relax the in-use majority on screenshots.
 
 ## Ratings
 
@@ -263,10 +271,12 @@ When reviewing an existing listing, check in this order:
 - [ ] Keyword field: ≥95 of 100 chars, no spaces after commas, singular only, no name/developer/category words, no trademarks or competitor names
 - [ ] No filler words ("app", "free", "best", "the") in any indexed field
 - [ ] Metadata reads as natural language answering one intent per field — not a token list
+- [ ] Before designing or critiquing screenshots: counted in-use vs marketing for every device size and every localization, and flagged any set that is not strictly more than half in use (3 need 2, 4 need 3, 10 need 6; exactly half fails)
 - [ ] Screenshot 1 states the main benefit; every screenshot has a caption in searchable feature language, none keyword-stuffed
+- [ ] iPhone Duo outer (1398×2034) and inner (2007×2853) sets are present when the binary uses the iOS 27.1 SDK and the submission is in April 2027 or later; earlier, they are optional and they earn the product-page badge
 - [ ] Icon is a layered Liquid Glass artwork checked in all six appearance modes
 - [ ] Preview video exists, opens on action, has text overlays, 15–30s
-- [ ] Product page header and search results creative are in place and pass the 4+ content rules, or deliberately skipped with a stated reason
+- [ ] Product page header matches the published spec (21:9 at 3840×1646, or the 16:9 PNG; video 5–30s, looping, muted-first) and passes guideline 2.3.14, or is deliberately skipped with a stated reason. Search results creative passes the same 2.3.14 and 4+ rules, or is deliberately skipped
 - [ ] Rating ≥ 4.0 (target 4.5+) with a success-moment prompt in place (3 system prompts/year is the whole budget)
 - [ ] Generated tags reviewed; misrepresentative ones deselected
 - [ ] At least 3 additional locales configured with researched (not translated) keywords, including the storefront's cross-indexed locale
